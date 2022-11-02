@@ -7,6 +7,8 @@ import {
   Param,
   ParseIntPipe,
   Delete,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { CreateUserPostDto } from './dto/create-user-post.dto';
 import { CreateUserProfileDto } from './dto/create-user-profile.dto';
@@ -15,6 +17,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UsersController {
   constructor(private userService: UsersService) {}
 

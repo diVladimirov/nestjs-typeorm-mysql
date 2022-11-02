@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { IsString, IsDate, IsNotEmpty } from 'class-validator';
 import {
   Column,
@@ -17,11 +18,11 @@ export class User {
 
   @Column({ unique: true })
   @IsString()
-  userName: string;
+  email: string;
 
-  @Column()
-  @IsNotEmpty()
-  password: string;
+  // @Column()
+  // @IsNotEmpty()
+  // password: string;
 
   @Column()
   @IsDate()
@@ -37,4 +38,13 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @Exclude()
+  @Column()
+  @IsNotEmpty()
+  password: string;
+
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
 }
