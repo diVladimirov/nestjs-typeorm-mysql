@@ -68,4 +68,8 @@ export class UsersService {
     });
     return this.postRepository.save(newPost);
   }
+
+  findOne(email: string): Promise<User | undefined> {
+    return this.userRepository.findOneBy({ email });
+  }
 }
