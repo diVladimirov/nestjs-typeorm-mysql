@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from 'src/entities/post.entity';
 import { Profile } from 'src/entities/profile.entity';
 import { User } from 'src/entities/user.entity';
+import { encodePassword } from 'src/utils/bcrypt';
 import {
   CreateUserParams,
   CreateUserPostParams,
@@ -24,8 +25,10 @@ export class UsersService {
   }
 
   createUser(userDetails: CreateUserParams) {
+    const password = encodePassword(userDetails.password);
     const newUser = this.userRepository.create({
       ...userDetails,
+      password,
       createdAt: new Date(),
     });
     return this.userRepository.save(newUser);
